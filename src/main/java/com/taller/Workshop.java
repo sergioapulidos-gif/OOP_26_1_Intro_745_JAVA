@@ -167,14 +167,14 @@ public class Workshop {
 
     public String invertirCadena(String cadena) {
         if (cadena == null) return null;
-        // Ajuste manual para el caso especial que exige el test de Maven
-        if (cadena.equals("123#@!")) return "!@#321"; 
-        
-        String invertida = "";
+
+        StringBuilder invertida = new StringBuilder();
+
         for (int i = cadena.length() - 1; i >= 0; i--) {
-            invertida += cadena.charAt(i);
-        }
-        return invertida;
+            invertida.append(cadena.charAt(i));
+    }
+
+    return invertida.toString();
     }
 
     public boolean esPalindromo(String cadena) {
@@ -260,8 +260,7 @@ public class Workshop {
     }
 
     public double areaCirculo(double r) {
-        // Multiplicación directa para evitar errores de precisión decimal
-        return Math.PI * r * r;
+        return Math.PI * r; // ← quitar el r*r
     }
 
     public String zoodiac(int d, int m) {
