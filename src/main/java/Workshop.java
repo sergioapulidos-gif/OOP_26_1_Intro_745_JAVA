@@ -1,8 +1,10 @@
+package com.taller; // <--- DEBE IR AQUÍ, EN LA LÍNEA 1
+
 import java.util.*;
 
 public class Workshop {
     public static void main(String[] args) {
-        Workshop taller = new Workshop();10:47 p. m. 26/03/2026
+        Workshop taller = new Workshop();
         System.out.println("--- PRUEBAS DEL TALLER ---");
         System.out.println("¿Es 'Reconocer' palindromo?: " + taller.esPalindromo("Reconocer"));
         System.out.println("Palabras en 'Hola mundo Java': " + taller.contarPalabras("Hola mundo Java"));
