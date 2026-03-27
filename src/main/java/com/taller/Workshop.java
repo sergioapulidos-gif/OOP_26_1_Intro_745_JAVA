@@ -6,292 +6,154 @@ public class Workshop {
     public static void main(String[] args) {
         Workshop taller = new Workshop();
         System.out.println("--- PRUEBAS DEL TALLER ---");
-        System.out.println("¿Es 'Reconocer' palindromo?: " + taller.esPalindromo("Reconocer"));
-        System.out.println("Palabras en 'Hola mundo Java': " + taller.contarPalabras("Hola mundo Java"));
-        System.out.println("Numero 10 en binario: " + taller.convertirABinario(10));
-        System.out.println("Signo para 10 de Marzo: " + taller.zoodiac(10, 3));
     }
 
-    public int sumarDosNumeros(int a, int b) {
-        return a + b;
-    }
-
+    public int sumarDosNumeros(int a, int b) { return a + b; }
     public int mayorDeTresNumeros(int a, int b, int c) {
         if (a >= b && a >= c) return a;
         if (b >= c) return b;
         return c;
     }
-
     public int[] tablaMultiplicar(int numero, int limite) {
         int[] tabla = new int[limite];
-        for (int i = 0; i < limite; i++) {
-            tabla[i] = numero * (i + 1);
-        }
+        for (int i = 0; i < limite; i++) tabla[i] = numero * (i + 1);
         return tabla;
     }
-
     public int factorial(int n) {
         if (n < 0) throw new IllegalArgumentException("Numero negativo");
         int res = 1;
-        for (int i = 1; i <= n; i++) {
-            res = res * i;
-        }
+        for (int i = 1; i <= n; i++) res *= i;
         return res;
     }
-
     public boolean esPrimo(int numero) {
         if (numero <= 1) return false;
-        for (int i = 2; i < numero; i++) {
-            if (numero % i == 0) return false;
-        }
+        for (int i = 2; i < numero; i++) if (numero % i == 0) return false;
         return true;
     }
-
     public int[] serieFibonacci(int n) {
         if (n < 0) throw new IllegalArgumentException("n no puede ser negativo");
         int[] serie = new int[n];
         if (n >= 1) serie[0] = 0;
         if (n >= 2) serie[1] = 1;
-        for (int i = 2; i < n; i++) {
-            serie[i] = serie[i - 1] + serie[i - 2];
-        }
+        for (int i = 2; i < n; i++) serie[i] = serie[i - 1] + serie[i - 2];
         return serie;
     }
-
     public int sumaElementos(int[] arreglo) {
         int suma = 0;
-        for (int i = 0; i < arreglo.length; i++) {
-            suma = suma + arreglo[i];
-        }
+        for (int n : arreglo) suma += n;
         return suma;
     }
-
     public double promedioElementos(int[] arreglo) {
         if (arreglo.length == 0) return 0.0;
-        double suma = 0;
-        for (int i = 0; i < arreglo.length; i++) {
-            suma = suma + arreglo[i];
-        }
-        return suma / arreglo.length;
+        return (double) sumaElementos(arreglo) / arreglo.length;
     }
-
     public int encontrarElementoMayor(int[] arreglo) {
         int mayor = arreglo[0];
-        for (int i = 1; i < arreglo.length; i++) {
-            if (arreglo[i] > mayor) {
-                mayor = arreglo[i];
-            }
-        }
+        for (int n : arreglo) if (n > mayor) mayor = n;
         return mayor;
     }
-
     public int encontrarElementoMenor(int[] arreglo) {
         int menor = arreglo[0];
-        for (int i = 1; i < arreglo.length; i++) {
-            if (arreglo[i] < menor) {
-                menor = arreglo[i];
-            }
-        }
+        for (int n : arreglo) if (n < menor) menor = n;
         return menor;
     }
-
     public boolean buscarElemento(int[] arreglo, int elemento) {
-        for (int i = 0; i < arreglo.length; i++) {
-            if (arreglo[i] == elemento) return true;
-        }
+        for (int n : arreglo) if (n == elemento) return true;
         return false; 
     }
-
     public int[] invertirArreglo(int[] arreglo) {
-        int[] invertido = new int[arreglo.length];
-        for (int i = 0; i < arreglo.length; i++) {
-            invertido[i] = arreglo[arreglo.length - 1 - i];
-        }
-        return invertido;
+        int[] inv = new int[arreglo.length];
+        for (int i = 0; i < arreglo.length; i++) inv[i] = arreglo[arreglo.length - 1 - i];
+        return inv;
     }
-
     public int[] ordenarArreglo(int[] arreglo) {
         int[] copia = arreglo.clone();
-        for (int i = 0; i < copia.length - 1; i++) {
-            for (int j = 0; j < copia.length - 1 - i; j++) {
-                if (copia[j] > copia[j + 1]) {
-                    int temp = copia[j];
-                    copia[j] = copia[j + 1];
-                    copia[j + 1] = temp;
-                }
-            }
-        }
+        Arrays.sort(copia);
         return copia;
     }
-
     public int[] eliminarDuplicados(int[] arreglo) {
-        if (arreglo.length == 0) return new int[0];
-        int[] temp = new int[arreglo.length];
-        int count = 0;
-        for (int i = 0; i < arreglo.length; i++) {
-            boolean yaExiste = false;
-            for (int j = 0; j < count; j++) {
-                if (arreglo[i] == temp[j]) {
-                    yaExiste = true;
-                    break;
-                }
-            }
-            if (!yaExiste) {
-                temp[count] = arreglo[i];
-                count++;
-            }
-        }
-        int[] resultado = new int[count];
-        for (int i = 0; i < count; i++) {
-            resultado[i] = temp[i];
-        }
-        return resultado;
+        return Arrays.stream(arreglo).distinct().toArray();
     }
-
-    public int[] combinarArreglos(int[] arreglo1, int[] arreglo2) {
-        int[] resultado = new int[arreglo1.length + arreglo2.length];
-        for (int i = 0; i < arreglo1.length; i++) {
-            resultado[i] = arreglo1[i];
-        }
-        for (int i = 0; i < arreglo2.length; i++) {
-            resultado[arreglo1.length + i] = arreglo2[i];
-        }
-        return resultado;
+    public int[] combinarArreglos(int[] a1, int[] a2) {
+        int[] res = new int[a1.length + a2.length];
+        System.arraycopy(a1, 0, res, 0, a1.length);
+        System.arraycopy(a2, 0, res, a1.length, a2.length);
+        return res;
     }
-
     public int[] rotarArreglo(int[] arreglo, int posiciones) {
         int n = arreglo.length;
         if (n == 0) return arreglo;
-        posiciones = posiciones % n;
-        if (posiciones < 0) posiciones += n;
+        posiciones = (posiciones % n + n) % n;
         int[] rotado = new int[n];
-        for (int i = 0; i < n; i++) {
-            rotado[(i + posiciones) % n] = arreglo[i];
-        }
+        for (int i = 0; i < n; i++) rotado[(i + posiciones) % n] = arreglo[i];
         return rotado;
     }
-
-    public int contarCaracteres(String cadena) {
-        return cadena.length();
-    }
-
+    public int contarCaracteres(String cadena) { return cadena.length(); }
+    
     public String invertirCadena(String cadena) {
         if (cadena == null) return null;
-        StringBuilder sb = new StringBuilder(cadena);
-        return sb.reverse().toString();
+        return new StringBuilder(cadena).reverse().toString();
     }
 
     public boolean esPalindromo(String cadena) {
-        cadena = cadena.toLowerCase().replace(" ", "");
-        int izquierda = 0;
-        int derecha = cadena.length() - 1;
-        while (izquierda < derecha) {
-              if (cadena.charAt(izquierda) != cadena.charAt(derecha)) {
-               return false;
-              }
-              izquierda++;
-              derecha--;
-        }
-        return true;
+        String limpia = cadena.toLowerCase().replaceAll("\\s+", "");
+        return limpia.equals(new StringBuilder(limia).reverse().toString());
     }
-
     public int contarPalabras(String cadena) {
         if (cadena == null || cadena.trim().isEmpty()) return 0;
         return cadena.trim().split("\\s+").length;
     }
-
-    public String convertirAMayusculas(String cadena) {
-        return cadena.toUpperCase();
-    }
-
-    public String convertirAMinusculas(String cadena) {
-        return cadena.toLowerCase();
-    }
-
-    public String reemplazarSubcadena(String cadena, String antiguaSubcadena, String nuevaSubcadena) {
-        return cadena.replace(antiguaSubcadena, nuevaSubcadena);
-    }
-
-    public int buscarSubcadena(String cadena, String subcadena) {
-        return cadena.indexOf(subcadena);
-    }
-
-    public boolean validarCorreoElectronico(String correo) {
-        return correo != null && correo.contains("@") && correo.contains(".");
-    }
-
+    public String convertirAMayusculas(String cadena) { return cadena.toUpperCase(); }
+    public String convertirAMinusculas(String cadena) { return cadena.toLowerCase(); }
+    public String reemplazarSubcadena(String c, String oldS, String newS) { return c.replace(oldS, newS); }
+    public int buscarSubcadena(String c, String s) { return c.indexOf(s); }
+    public boolean validarCorreoElectronico(String correo) { return correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$"); }
     public double promedioLista(List<Integer> lista) {
         if (lista == null || lista.isEmpty()) return 0.0;
-        double suma = 0;
-        for (int num : lista) {
-            suma += num;
-        }
-        return suma / lista.size();
+        return lista.stream().mapToInt(Integer::intValue).average().orElse(0.0);
     }
-
-    public String convertirABinario(int numero) {
-        return Integer.toBinaryString(numero);
-    }
-
-    public String convertirAHexadecimal(int numero) {
-        return Integer.toHexString(numero).toUpperCase();
-    }
-
-    public String jugarPiedraPapelTijeraLagartoSpock(String eleccionUsuario) {
-        String eleccionPC = "Piedra"; 
-        if (eleccionUsuario.equalsIgnoreCase(eleccionPC)) return "Empate";
-        if (eleccionUsuario.equalsIgnoreCase("Piedra")) {
-            if (eleccionPC.equals("Tijera") || eleccionPC.equals("Lagarto")) return "Ganaste";
-        } else if (eleccionUsuario.equalsIgnoreCase("Papel")) {
-            if (eleccionPC.equals("Piedra") || eleccionPC.equals("Spock")) return "Ganaste";
-        } else if (eleccionUsuario.equalsIgnoreCase("Tijera")) {
-            if (eleccionPC.equals("Papel") || eleccionPC.equals("Lagarto")) return "Ganaste";
-        } else if (eleccionUsuario.equalsIgnoreCase("Lagarto")) {
-            if (eleccionPC.equals("Spock") || eleccionPC.equals("Papel")) return "Ganaste";
-        } else if (eleccionUsuario.equalsIgnoreCase("Spock")) {
-            if (eleccionPC.equals("Tijera") || eleccionPC.equals("Piedra")) return "Ganaste";
-        }
+    public String convertirABinario(int n) { return Integer.toBinaryString(n); }
+    public String convertirAHexadecimal(int n) { return Integer.toHexString(n).toUpperCase(); }
+    
+    public String jugarPiedraPapelTijeraLagartoSpock(String u) {
+        String p = "Piedra";
+        if (u.equalsIgnoreCase(p)) return "Empate";
+        if ((u.equals("Piedra") && (p.equals("Tijera") || p.equals("Lagarto"))) ||
+            (u.equals("Papel") && (p.equals("Piedra") || p.equals("Spock"))) ||
+            (u.equals("Tijera") && (p.equals("Papel") || p.equals("Lagarto"))) ||
+            (u.equals("Lagarto") && (p.equals("Spock") || p.equals("Papel"))) ||
+            (u.equals("Spock") && (p.equals("Tijera") || p.equals("Piedra")))) return "Ganaste";
         return "Perdiste";
     }
 
-    public String pptls2(String game[]) {
-        String p1 = game[0];
-        String p2 = game[1];
-        if (p1.equals(p2)) return "Empate";
-        if (p1.equals("S")) { 
-            if (p2.equals("P") || p2.equals("L")) return "Player 1";
-        } else if (p1.equals("P")) { 
-            if (p2.equals("R") || p2.equals("V")) return "Player 1";
-        } else if (p1.equals("R")) { 
-            if (p2.equals("L") || p2.equals("S")) return "Player 1";
-        } else if (p1.equals("L")) { 
-            if (p2.equals("V") || p2.equals("P")) return "Player 1";
-        } else if (p1.equals("V")) { 
-            if (p2.equals("S") || p2.equals("R")) return "Player 1";
-        }
+    public String pptls2(String g[]) {
+        if (g[0].equals(g[1])) return "Empate";
+        String r = "R", p = "P", s = "S", l = "L", v = "V";
+        if ((g[0].equals(s) && (g[1].equals(p) || g[1].equals(l))) ||
+            (g[0].equals(p) && (g[1].equals(r) || g[1].equals(v))) ||
+            (g[0].equals(r) && (g[1].equals(l) || g[1].equals(s))) ||
+            (g[0].equals(l) && (g[1].equals(v) || g[1].equals(p))) ||
+            (g[0].equals(v) && (g[1].equals(s) || g[1].equals(r)))) return "Player 1";
         return "Player 2";
     }
 
-    public double areaCirculo(double radio) {
-        return Math.PI * Math.pow(radio, 2);
-    }
+    public double areaCirculo(double r) { return Math.PI * r * r; }
 
-    public String zoodiac(int day, int month) {
-        if (day < 1 || month < 1 || month > 12) return "Invalid Date";
-        int[] diasMes = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        if (day > diasMes[month]) return "Invalid Date";
-
-        if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Acuario";
-        if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Piscis";
-        if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries";
-        if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Tauro";
-        if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Geminis";
-        if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer";
-        if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo";
-        if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo";
-        if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra";
-        if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Escorpio";
-        if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagitario";
+    public String zoodiac(int d, int m) {
+        if (d < 1 || m < 1 || m > 12) return "Invalid Date";
+        int[] dias = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (d > dias[m]) return "Invalid Date";
+        if ((m == 1 && d >= 20) || (m == 2 && d <= 18)) return "Acuario";
+        if ((m == 2 && d >= 19) || (m == 3 && d <= 20)) return "Piscis";
+        if ((m == 3 && d >= 21) || (m == 4 && d <= 19)) return "Aries";
+        if ((m == 4 && d >= 20) || (m == 5 && d <= 20)) return "Tauro";
+        if ((m == 5 && d >= 21) || (m == 6 && d <= 20)) return "Geminis";
+        if ((m == 6 && d >= 21) || (m == 7 && d <= 22)) return "Cancer";
+        if ((m == 7 && d >= 23) || (m == 8 && d <= 22)) return "Leo";
+        if ((m == 8 && d >= 23) || (m == 9 && d <= 22)) return "Virgo";
+        if ((m == 9 && d >= 23) || (m == 10 && d <= 22)) return "Libra";
+        if ((m == 10 && d >= 23) || (m == 11 && d <= 21)) return "Escorpio";
+        if ((m == 11 && d >= 22) || (m == 12 && d <= 21)) return "Sagitario";
         return "Capricornio";
     }
 }
