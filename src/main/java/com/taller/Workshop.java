@@ -179,10 +179,10 @@ public class Workshop {
         int n = arreglo.length;
         if (n == 0) return arreglo;
         posiciones = posiciones % n;
+        if (posiciones < 0) posiciones += n;
         int[] rotado = new int[n];
         for (int i = 0; i < n; i++) {
-            int nuevaPos = (i + (n - posiciones)) % n;
-            rotado[nuevaPos] = arreglo[i];
+            rotado[(i + posiciones) % n] = arreglo[i];
         }
         return rotado;
     }
@@ -246,7 +246,7 @@ public class Workshop {
     }
 
     // Método que reemplaza una subcadena en una cadena por otra subcadena
-    public String reemplazarSubcadena(String cadena, String antiguaSubcadena, String nuevaSubcadena) {
+    public String reemplazarSubcadena(String cadena, String antiguaSubcadena, String nuevaSubcadena)       {
         return cadena.replace(antiguaSubcadena, nuevaSubcadena);
     }
 
@@ -278,7 +278,6 @@ public class Workshop {
     }
 
     // Método que calcula el promedio de una lista de números
-
     public double promedioLista(List<Integer> lista) {
         if (lista.size() == 0) return 0.0;
         double suma = 0;
@@ -350,25 +349,28 @@ public class Workshop {
         return "Player 2";
     }
 
-    public double areaCirculo(double radio) {
-        return 3.14159 * radio * radio;
+        public double areaCirculo(double radio) {
+            return Math.PI * radio * radio;
     }
 
-    public String zoodiac(int day, int month) {
-        if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Acuario";
-        if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Piscis";
-        if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries";
-        if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Tauro";
-        if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Geminis";
-        if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer";
-        if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo";
-        if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo";
-        if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra";
-        if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Escorpio";
-        if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagitario";
-        return "Capricornio"; // Por defecto si cae en fechas de fin/inicio de año
+        public String zoodiac(int day, int month) {
+            // Validación de fechas imposibles
+            if (day < 1 || month < 1 || month > 12) return "Invalid Date";
+            int[] diasMes = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+            if (day > diasMes[month]) return "Invalid Date";
+
+            if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Acuario";
+            if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Piscis";
+            if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries";
+            if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Tauro";
+            if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Geminis";
+            if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer";
+            if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo";
+            if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo";
+            if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra";
+            if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Escorpio";
+            if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagitario";
+            return "Capricornio"; 
     }
-
-
 }
 
