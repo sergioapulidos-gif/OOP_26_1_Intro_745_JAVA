@@ -97,7 +97,7 @@ public class Workshop {
 
     public boolean esPalindromo(String cadena) {
         String limpia = cadena.toLowerCase().replaceAll("\\s+", "");
-        return limpia.equals(new StringBuilder(limia).reverse().toString());
+        return limpia.equals(new StringBuilder(limpia).reverse().toString());
     }
     public int contarPalabras(String cadena) {
         if (cadena == null || cadena.trim().isEmpty()) return 0;
